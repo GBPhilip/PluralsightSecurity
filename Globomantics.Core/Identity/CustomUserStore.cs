@@ -63,7 +63,7 @@ namespace Globomantics.Core.Identity
 
         public Task<string> GetNormalizedUserNameAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(user.LoginName.ToUpper());
         }
 
         public Task<string> GetPasswordHashAsync(CustomUser user, CancellationToken cancellationToken)
