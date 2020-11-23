@@ -46,7 +46,7 @@ namespace Globomantics.Core.Identity
 
         public Task<bool> GetEmailConfirmedAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task<string> GetNormalizedEmailAsync(CustomUser user, CancellationToken cancellationToken)
