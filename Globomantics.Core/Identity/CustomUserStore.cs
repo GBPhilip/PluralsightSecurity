@@ -92,7 +92,7 @@ namespace Globomantics.Core.Identity
 
         public Task<bool> HasPasswordAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(!string.IsNullOrEmpty(user.PasswordHash));
         }
 
         public Task SetEmailAsync(CustomUser user, string email, CancellationToken cancellationToken)
