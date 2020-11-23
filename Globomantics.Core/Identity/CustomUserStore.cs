@@ -117,7 +117,10 @@ namespace Globomantics.Core.Identity
 
         public Task SetPasswordHashAsync(CustomUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = null;
+            user.PasswordModifiedDate = DateTime.Now;
+            return Task.CompletedTask;
         }
 
         public Task SetUserNameAsync(CustomUser user, string userName, CancellationToken cancellationToken)
