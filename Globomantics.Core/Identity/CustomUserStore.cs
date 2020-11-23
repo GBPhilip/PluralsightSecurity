@@ -26,7 +26,7 @@ namespace Globomantics.Core.Identity
 
         public Task<CustomUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return FindByNameAsync(normalizedEmail, cancellationToken);
         }
 
         public Task<CustomUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
@@ -51,7 +51,7 @@ namespace Globomantics.Core.Identity
 
         public Task<string> GetNormalizedEmailAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(user.NormalizedEmail);
         }
 
         public Task<string> GetNormalizedUserNameAsync(CustomUser user, CancellationToken cancellationToken)
