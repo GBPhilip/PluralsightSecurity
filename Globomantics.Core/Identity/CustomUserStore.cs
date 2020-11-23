@@ -103,7 +103,7 @@ namespace Globomantics.Core.Identity
 
         public Task SetNormalizedUserNameAsync(CustomUser user, string normalizedName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task SetPasswordHashAsync(CustomUser user, string passwordHash, CancellationToken cancellationToken)
