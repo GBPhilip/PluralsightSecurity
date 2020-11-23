@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Dapper;
+using Microsoft.AspNetCore.Identity;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -119,7 +121,27 @@ namespace Globomantics.Core.Identity
 
         public Task<IdentityResult> UpdateAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            IdentityResult result;
+            try
+            {
+                db.ExecuteAsync(@"
+Update GlobomanticsUser
+Set PasswordHash = @PasswordHash
+,PasswordSalt = @PasswordSalt
+,LoginName = @LoginName
+,PasswordModifiedDate = @PasswordModifiedDate
+,CreateDate = @CreateDate
+,Status =@Status
+Where UserId = @UserId", user);
+                result = IdentityResult.Success;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error updating identity");
+                result = IdentityResult.Failed();
+            }
+            return Task.FromResult(result);
         }
     }
 }
