@@ -113,7 +113,8 @@ namespace Globomantics.Core.Identity
 
         public Task SetUserNameAsync(CustomUser user, string userName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.LoginName = userName;
+            return Task.CompletedTask;
         }
 
         public Task<IdentityResult> UpdateAsync(CustomUser user, CancellationToken cancellationToken)
