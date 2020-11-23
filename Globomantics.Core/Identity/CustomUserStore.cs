@@ -78,7 +78,7 @@ namespace Globomantics.Core.Identity
 
         public Task<string> GetUserNameAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(user.LoginName);
         }
 
         public Task<bool> HasPasswordAsync(CustomUser user, CancellationToken cancellationToken)
