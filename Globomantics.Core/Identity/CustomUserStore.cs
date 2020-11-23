@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace Globomantics.Core.Identity
 {
     public class CustomUserStore : IUserPasswordStore<CustomUser>, IUserEmailStore<CustomUser>
     {
+        private readonly IDbConnection db;
+
+        public CustomUserStore(IDbConnection db)
+        {
+            this.db = db;
+        }
         public Task<IdentityResult> CreateAsync(CustomUser user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
