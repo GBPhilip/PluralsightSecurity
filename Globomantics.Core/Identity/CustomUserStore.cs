@@ -47,9 +47,12 @@ namespace Globomantics.Core.Identity
 
         }
 
-        public Task<CustomUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<CustomUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await db.QueryAsync<CustomUser>(
+                "Select * From GlobomanticsUser Where LoginName = @LoginName"
+                , new { LoginName = normalizedUserName });
+            return user.SingleOrDefault();
         }
 
         public Task<string> GetEmailAsync(CustomUser user, CancellationToken cancellationToken)
