@@ -41,7 +41,7 @@ namespace Globomantics.Core.Identity
         public async Task<CustomUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var user = await db.QueryAsync<CustomUser>(
-                "Select * From GlobomanticsUser Where UserId =@UserID"
+                "Select * From GlobomanticsUser Where UserId =@userID"
                 , new { userId });
             return user.SingleOrDefault();
 
