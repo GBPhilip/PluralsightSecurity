@@ -38,9 +38,13 @@ namespace Globomantics.Core.Identity
             return FindByNameAsync(normalizedEmail, cancellationToken);
         }
 
-        public Task<CustomUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<CustomUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await db.QueryAsync<CustomUser>(
+                "Select * From GlobomanticsUser Where UserId =@UserID"
+                , new { userId });
+            return user.SingleOrDefault();
+
         }
 
         public Task<CustomUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
