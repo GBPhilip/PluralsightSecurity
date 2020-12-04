@@ -1,6 +1,8 @@
 using System.Data;
+using Globomantics.Core.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +23,19 @@ namespace Globomantics.Core
         {
             services.AddScoped<IDbConnection, SqlConnection>(db =>
                 new SqlConnection(Configuration.GetConnectionString("GlobomanticsDb")));
-            
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            }).AddIdentityCookies();
+
+            services.AddIdentityCore<CustomUser>()
+                .AddSignInManager<SignInManager<CustomUser>>()
+                .AddUserManager<UserManager<CustomUser>>()
+                .AddUserStore<CustomUserStore>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
             services.AddRazorPages();
         }
 
