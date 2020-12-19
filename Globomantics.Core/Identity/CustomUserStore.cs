@@ -30,7 +30,7 @@ namespace Globomantics.Core.Identity
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Task<CustomUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
