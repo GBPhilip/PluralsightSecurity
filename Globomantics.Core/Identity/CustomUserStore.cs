@@ -30,7 +30,7 @@ namespace Globomantics.Core.Identity
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Task<CustomUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
@@ -40,11 +40,9 @@ namespace Globomantics.Core.Identity
 
         public async Task<CustomUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            var user = await db.QueryAsync<CustomUser>(
+            return await db.QuerySingleOrDefaultAsync<CustomUser>(
                 "Select * From GlobomanticsUser Where UserId =@userID"
                 , new { userId });
-            return user.SingleOrDefault();
-
         }
 
         public async Task<CustomUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
@@ -57,7 +55,11 @@ namespace Globomantics.Core.Identity
 
         public Task<string> GetEmailAsync(CustomUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            return Task.FromResult(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(CustomUser user, CancellationToken cancellationToken)
@@ -107,7 +109,11 @@ namespace Globomantics.Core.Identity
 
         public Task SetNormalizedEmailAsync(CustomUser user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            return Task.CompletedTask;
         }
 
         public Task SetNormalizedUserNameAsync(CustomUser user, string normalizedName, CancellationToken cancellationToken)
