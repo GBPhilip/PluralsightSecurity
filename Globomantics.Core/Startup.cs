@@ -29,6 +29,7 @@ namespace Globomantics.Core
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             }).AddIdentityCookies();
 
+            services.AddScoped<IPasswordHasher<CustomUser>, CustomPasswordHasher>();
             services.AddIdentityCore<CustomUser>()
                 .AddSignInManager<SignInManager<CustomUser>>()
                 .AddUserManager<UserManager<CustomUser>>()
