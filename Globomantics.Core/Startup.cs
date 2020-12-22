@@ -50,6 +50,7 @@ namespace Globomantics.Core
             app.UseStaticFiles();
             app.UseSerilogRequestLogging();
 
+            app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
